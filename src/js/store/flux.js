@@ -1,43 +1,69 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			demo: [
-				{
-					title: "FIRST",
-					background: "white",
-					initial: "white"
-				},
-				{
-					title: "SECOND",
-					background: "white",
-					initial: "white"
-				}
-			]
+			favorites: [],
+			characters: [], // Lista de personajes
+			planets: [], // Lista de planetas
+			vehicles: [], // Lista de vehículos
+			selectedCharacter: null,
+			selectedPlanet: null,
+			selectedVehicle: null,
 		},
 		actions: {
-			// Use getActions to call a function within a fuction
-			exampleFunction: () => {
-				getActions().changeColor(0, "green");
+			// Cargar personajes, planetas y vehículos desde la API
+			loadInitialData: async () => {
+				const characterResponse = await fetch("https://www.swapi.tech/api/people");
+				const characterData = await characterResponse.json();
+				setStore({ characters: characterData.results });
+
+				const planetResponse = await fetch("https://www.swapi.tech/api/planets");
+				const planetData = await planetResponse.json();
+				setStore({ planets: planetData.results });
+
+				const vehicleResponse = await fetch("https://www.swapi.tech/api/vehicles");
+				const vehicleData = await vehicleResponse.json();
+				setStore({ vehicles: vehicleData.results });
 			},
-			loadSomeData: () => {
-				/**
-					fetch().then().then(data => setStore({ "foo": data.bar }))
-				*/
+
+			// Set favoritos al cargar la aplicación
+			setFavorites: (favorites) => {
+				setStore({ favorites: favorites });
 			},
-			changeColor: (index, color) => {
-				//get the store
+
+			// Agregar un favorito
+			addFavorite: (item) => {
 				const store = getStore();
+				const updatedFavorites = [...store.favorites, item];
+				setStore({ favorites: updatedFavorites });
 
-				//we have to loop the entire demo array to look for the respective index
-				//and change its color
-				const demo = store.demo.map((elm, i) => {
-					if (i === index) elm.background = color;
-					return elm;
-				});
+				// Guardar los favoritos en localStorage
+				localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+			},
 
-				//reset the global store
-				setStore({ demo: demo });
-			}
+			// Eliminar un favorito
+			removeFavorite: (name) => {
+				const store = getStore();
+				const updatedFavorites = store.favorites.filter(fav => fav.name !== name);
+				setStore({ favorites: updatedFavorites });
+
+				// Guardar los favoritos actualizados en localStorage
+				localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+			},
+
+			// Guardar el personaje seleccionado
+			setSelectedCharacter: (character) => {
+				setStore({ selectedCharacter: character, selectedPlanet: null, selectedVehicle: null });
+			},
+
+			// Guardar el planeta seleccionado
+			setSelectedPlanet: (planet) => {
+				setStore({ selectedPlanet: planet, selectedCharacter: null, selectedVehicle: null });
+			},
+
+			// Guardar el vehículo seleccionado
+			setSelectedVehicle: (vehicle) => {
+				setStore({ selectedVehicle: vehicle, selectedCharacter: null, selectedPlanet: null });
+			},
 		}
 	};
 };

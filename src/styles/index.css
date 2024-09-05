@@ -1,3 +1,163 @@
-/* 
-    General Styles
-*/
+body {
+    background: hsla(236, 100%, 8%, 1);
+    background: linear-gradient(90deg, hsla(211, 100%, 20%, 1) 0%, hsla(236, 100%, 8%, 1) 100%);
+    background: -moz-linear-gradient(90deg, hsla(211, 100%, 20%, 1) 0%, hsla(236, 100%, 8%, 1) 100%);
+    background: -webkit-linear-gradient(90deg, hsla(211, 100%, 20%, 1) 0%, hsla(236, 100%, 8%, 1) 100%);
+    background-repeat: no-repeat;
+    /* Evita la repetición del fondo */
+    background-size: cover;
+    /* Asegura que el fondo cubra toda el área */
+    background-attachment: fixed;
+    /* Mantiene el fondo fijo mientras se hace scroll */
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+.planet-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.card {
+    background-color: rgba(0, 0, 0, 0.403);
+    /* Fondo negro semitransparente */
+    backdrop-filter: blur(10px);
+    /* Aplica el desenfoque */
+    border: none;
+    /* Remueve el borde por defecto */
+    border-radius: 20px;
+    /* Redondea los bordes */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 2);
+    /* Sombra sutil */
+    color: white;
+    /* Texto en blanco para contraste */
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.planet-image {
+    width: 100%;
+    /* Se ajusta al ancho de la tarjeta */
+    height: 200px;
+    /* Altura fija */
+    object-fit: cover;
+    /* Hace que la imagen se recorte si es necesario para llenar el espacio */
+    border-radius: 8px;
+}
+
+
+.card-img-top {
+    height: 300px;
+    object-fit: cover;
+    border-radius: 20px;
+
+}
+
+.card-body {
+    flex: 1;
+    /* Esto asegura que el cuerpo de la tarjeta ocupe el resto del espacio disponible */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.custom-btn-circle {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.custom-btn-circle:hover {
+    transform: scale(1.1);
+}
+
+.custom-btn-purple {
+    background-color: #6a0dad;
+    /* Color morado */
+}
+
+.custom-btn-purple:hover {
+    background-color: #7b1fa2;
+    /* Color morado más claro en hover */
+}
+
+.custom-btn-black {
+    background-color: rgba(0, 0, 0, 0.8);
+    /* Color negro */
+}
+
+.custom-btn-black:hover {
+    background-color: rgba(0, 0, 0, 1);
+    /* Color negro más oscuro en hover */
+}
+
+h1 {
+    color: white;
+    margin-bottom: 20px;
+}
+
+.custom-btn {
+    padding: 10px 20px;
+    background-color: #6a0dad;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    display: inline-block;
+    text-decoration: none;
+    width: 120px;
+    /* Quitar subrayado si es un enlace */
+}
+
+.custom-btn:hover {
+    background-color: #7b1fa2;
+    /* Color morado más claro en hover */
+    transform: scale(1.05);
+    /* Pequeña animación de crecimiento al pasar el cursor */
+}
+
+.custom-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px #5a0c8a;
+    /* Foco accesible */
+}
+
+/* Navbar transparente al inicio */
+.navbar-initial {
+    background-color: transparent;
+    transition: background-color 0.9s ease, top 0.9s ease;
+    position: relative;
+    top: 0;
+    width: 100%;
+}
+
+/* Navbar fijo cuando se hace scroll */
+.navbar-fixed {
+    background-color: #343a40;
+    /* O el color que prefieras */
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    transition: background-color 0.9s ease, top 0.9s ease;
+}
+
+/* Transición para suavizar el cambio */
+.navbar-transition {
+    transition: all 0.9s ease;
+}
